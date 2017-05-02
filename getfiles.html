@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<input type="file" name="file" class="file">
+<button>点击此处读取文件</button>
+<img src="" alt="">
+<script>
+    // 功能:通过type=file的一个上传输入框，上传文件，把选择到的文件显示到网页中
+    // 命名规范:
+    // o:object
+    // a:array
+    // str:字符串
+    // 单引号和双引号
+    // 没有任何区别  就是方便
+    var oInput=document.querySelector('.file');
+    var oBtn=document.querySelector('button');
+    var  oImg=document.querySelector('img');
+
+    // 给button添加一个点击事件
+    oBtn.onclick=function(){
+        //console.log(oInput);//<input type="file" name="file" class="file">
+        // 问题:打出oInput下面的所有的属性
+        // console.dir(oInput);
+        //console.log(oInput.files);//input选择的文件，存储在files这个数组中
+
+        //功能:把选择到的图片，显示到页面中
+        // 1.读取input中的文件
+        // 2.内置对象FileReader
+        // 3.实例化FileReader对象
+        var reader=new FileReader();
+        // 4.使用FileReader对象方法 readAsDataURL(input中的存的文件)  通过DataURL的方式读取文件
+        //console.log(reader);
+        reader.readAsDataURL(oInput.files[0]);
+        // 5.等待FileReader对象读取完文件
+        reader.onload=function(){
+            // 6.得到文件内容
+            //console.log(reader.result);
+            //data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEA8AD
+            // 解释:
+            //    image/jpeg  斜杠前面的是大类型 斜杠后面是jpeg是具体类型(jpg,png,bmp,gif)  MIMEL类型
+            // base64  base64编码格式
+            // 7.把文件内容写入到img标签上
+            oImg.src=reader.result;
+        }
+        // 测试
+        // var date=new Date();//实例化
+    }
+</script>
+</body>
+</html>
